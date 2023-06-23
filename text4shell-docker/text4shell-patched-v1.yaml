@@ -26,6 +26,8 @@ spec:
       - image: ghcr.io/aaronm-sysdig/text4shell-docker-patched:29
         imagePullPolicy: Always
         name: text4shell-docker-patched-v1
+        securityContext:
+          runAsUser: 1000
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
