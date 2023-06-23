@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: text4shell-patched-v1
+  name: text4shell-patched-v1
+  namespace: text4shell-patched
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: text4shell-patched-v1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: text4shell-patched-v1
+    spec:
+      containers:
+      - image: ghcr.io/aaronm-sysdig/text4shell-docker-patched:29
+        imagePullPolicy: Always
+        name: text4shell-docker-patched-v1
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
